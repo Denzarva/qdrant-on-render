@@ -1,7 +1,9 @@
 FROM qdrant/qdrant:latest
 
-# Указываем явно порт
-EXPOSE 6333
+# Устанавливаем socat для перенаправления портов
+RUN apt update && apt install -y socat
 
-# Запускаем Qdrant вручную
-CMD ["./qdrant"]
+# Пробрасываем порт 80 → 6333
+CMD socat TCP-LISTEN:80,fork TCP:localhost:6333 & ./qdrant
+
+EXPOSE 80
