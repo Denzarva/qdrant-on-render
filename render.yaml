@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: qdrant-ai
+    env: docker
+    plan: free
+    autoDeploy: true
+    healthCheckPath: /v1/collections
